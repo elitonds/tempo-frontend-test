@@ -20,9 +20,15 @@ const UserList: React.FC<UserProps> = () => {
   const [teamUsers, setTeamUsers] = useState([]);
 
   const getUsers = useCallback(async () => {
-    await UserService.findAll().then((response: any) =>
-      setUsers(response.data)
-    );
+    setLoading(true);
+    try {
+      await UserService.findAll().then((response: any) => {
+        setUsers(response.data);
+      });
+    } catch (e) {
+      //TODO error treatment
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -40,6 +46,7 @@ const UserList: React.FC<UserProps> = () => {
           );
           setTeamUsers(usersFromTeam || []);
           setDataTeamUsers(usersFromTeam);
+          setLoading(false);
         }
       }
     },

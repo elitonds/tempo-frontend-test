@@ -23,10 +23,20 @@ const TeamList: React.FC<UserProps> = () => {
   ];
 
   const findAllTeams = useCallback(async () => {
-    await TeamService.findAll().then((response: any) => {
-      setTeams(response.data);
-      setDataTeams(response.data);
-    });
+    try {
+      setLoading(true);
+      await TeamService.findAll()
+        .then((response: any) => {
+          setTeams(response.data);
+          setDataTeams(response.data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (e) {
+      //TODO error treatment
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
