@@ -21,7 +21,7 @@ const UserDetail: React.FC<{}> = () => {
   }, []);
   
   return (
-    <Card style={{ width: 300, marginTop: 16 }}>
+    <Card style={{ width: 300, marginTop: 16 }} title="User Details">
       {user && (
         <Meta
           avatar={<Avatar src={user.avatarUrl} />}

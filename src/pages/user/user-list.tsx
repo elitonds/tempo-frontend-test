@@ -16,6 +16,7 @@ const UserList: React.FC<UserProps> = () => {
   const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
+  const [dataTeamUsers, setDataTeamUsers] = useState([]);
   const [teamUsers, setTeamUsers] = useState([]);
 
   const getUsers = useCallback(async () => {
@@ -38,6 +39,7 @@ const UserList: React.FC<UserProps> = () => {
             teamDetails.teamMemberIds.includes(user.id)
           );
           setTeamUsers(usersFromTeam || []);
+          setDataTeamUsers(usersFromTeam);
         }
       }
     },
@@ -61,7 +63,7 @@ const UserList: React.FC<UserProps> = () => {
   return (
     <div>
       <SearchField
-        dataSource={teamUsers}
+        dataSource={dataTeamUsers}
         fieldSearch="displayName"
         setDataSource={setTeamUsers}
         setLoading={setLoading}
@@ -71,7 +73,6 @@ const UserList: React.FC<UserProps> = () => {
           total={teamUsers?.length || 0}
           columns={columns}
           dataSource={teamUsers}
-          totalPerPage={10}
           onSelectRow={(team: UserDTO) => navigate(`/users/${team.id}`)}
         />
       </Card>

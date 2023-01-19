@@ -1,9 +1,10 @@
 import { Table } from "antd";
 import { ColumnsType } from "antd/lib/table";
+import { useState } from "react";
 
 interface Props {
   total: number;
-  totalPerPage?: number;
+  totalPerPageDefault?: number;
   columns: ColumnsType<any>;
   dataSource: any[];
   onSelectRow?: any;
@@ -12,11 +13,12 @@ interface Props {
 const PaginatedList: React.FC<Props> = (props) => {
   const {
     total = 1,
-    totalPerPage = 10,
+    totalPerPageDefault = 10,
     columns,
     dataSource = [],
-    onSelectRow = () => {},
+    onSelectRow = Function,
   } = props;
+  const [totalPerPage, setTotalPerPage] = useState(totalPerPageDefault);
 
   return (
     <>

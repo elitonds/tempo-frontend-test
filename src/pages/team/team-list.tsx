@@ -1,5 +1,4 @@
 import { Card } from "antd";
-import Search from "antd/es/input/Search";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PaginatedList from "../../components/paginated-list/paginated-list";
@@ -12,6 +11,7 @@ interface UserProps {}
 const TeamList: React.FC<UserProps> = () => {
   const navigate = useNavigate();
   const [teams, setTeams] = useState([]);
+  const [dataTeams, setDataTeams] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const columns = [
@@ -25,6 +25,7 @@ const TeamList: React.FC<UserProps> = () => {
   const findAllTeams = useCallback(async () => {
     await TeamService.findAll().then((response: any) => {
       setTeams(response.data);
+      setDataTeams(response.data);
     });
   }, []);
 
@@ -35,7 +36,7 @@ const TeamList: React.FC<UserProps> = () => {
   return (
     <div>
       <SearchField
-        dataSource={teams}
+        dataSource={dataTeams}
         fieldSearch="name"
         setDataSource={setTeams}
         setLoading={setLoading}
@@ -45,7 +46,6 @@ const TeamList: React.FC<UserProps> = () => {
           total={teams?.length || 0}
           columns={columns}
           dataSource={teams}
-          totalPerPage={10}
           onSelectRow={(team: TeamDTO) => navigate(`${team.id}/users`)}
         />
       </Card>
