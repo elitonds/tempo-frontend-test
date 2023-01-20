@@ -6,9 +6,9 @@ import SearchField from "../../components/search-field/search-field";
 import { TeamDTO } from "../../dto/team/team.dto";
 import TeamService from "../../services/team/team.service";
 
-interface UserProps {}
+interface TeamProps {}
 
-const TeamList: React.FC<UserProps> = () => {
+const TeamList: React.FC<TeamProps> = () => {
   const navigate = useNavigate();
   const [teams, setTeams] = useState([]);
   const [dataTeams, setDataTeams] = useState([]);
@@ -25,14 +25,10 @@ const TeamList: React.FC<UserProps> = () => {
   const findAllTeams = useCallback(async () => {
     try {
       setLoading(true);
-      await TeamService.findAll()
-        .then((response: any) => {
-          setTeams(response.data);
-          setDataTeams(response.data);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      const response = await TeamService.findAll();
+      setTeams(response.data);
+      setDataTeams(response.data);
+      setLoading(false);
     } catch (e) {
       //TODO error treatment
       setLoading(false);
