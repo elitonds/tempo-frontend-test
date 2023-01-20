@@ -31,6 +31,7 @@ const PaginatedList: React.FC<Props> = (props) => {
           defaultCurrent: 1,
           pageSize: totalPerPage,
         }}
+        style={{cursor: 'pointer'}}
         onRow={(record) => {
           return {
             onClick: () => {
