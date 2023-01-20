@@ -1,7 +1,8 @@
-import Search from "antd/es/input/Search";
-import { useMemo, useState } from "react";
+import { Input } from "antd";
+import { useState } from "react";
 
 interface SearchFieldProps {
+  id?: string;
   dataSource: any[];
   setDataSource: Function;
   setLoading: Function;
@@ -10,7 +11,7 @@ interface SearchFieldProps {
 }
 
 const SearchField: React.FC<SearchFieldProps> = (props) => {
-  const { dataSource, fieldSearch, setDataSource, setLoading, style } = props;
+  const { id, dataSource, fieldSearch, setDataSource, setLoading, style } = props;
   const [searchTimeout, setSearchTimeout] = useState(setTimeout(() => {}));
 
   const search = (value: string) => {
@@ -34,10 +35,11 @@ const SearchField: React.FC<SearchFieldProps> = (props) => {
   };
 
   return (
-    <Search
-      placeholder="input search text"
+    <Input
+      id={id}
+      placeholder="Search..."
       onChange={(e) => search(e.target.value)}
-      style={style || { width: "100%", paddingBottom: "10px" }}
+      style={style || { width: "100%", marginBottom: "10px" }}
     />
   );
 };

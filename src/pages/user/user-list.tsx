@@ -70,6 +70,7 @@ const UserList: React.FC<UserProps> = () => {
   return (
     <div>
       <SearchField
+        id="search-field"
         dataSource={dataTeamUsers}
         fieldSearch="displayName"
         setDataSource={setTeamUsers}
